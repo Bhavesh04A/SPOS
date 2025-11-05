@@ -56,6 +56,11 @@ public class FCFS_Swapping {
         }
     }
 }
+/*PID  AT  BT  CT  TAT  WT
+P1   0   5   5   5    0
+P2   1   3   8   7    4
+P3   2   2   10  8    6 */
+
 
 //SJF Preepmtive
 import java.util.*;
@@ -134,6 +139,11 @@ public class SJF_Preemptive {
         System.out.println("Average RT: " + (sumRT / (float) n));
     }
 }
+/*PID  AT  BT  CT  TAT  WT  RT
+P1   0   8   16  16   8   0
+P2   1   4   5   4    0   0
+P3   2   2   4   2    0   0
+ */
 
 //Round Robbin Preemptive
 import java.util.*;
@@ -215,53 +225,75 @@ public class RoundRobin {
         System.out.println("Average Waiting Time: " + (avgWT / n));
     }
 }
+/*PID  AT  BT  CT  TAT  WT
+P1   0   5   10  10   5
+P2   1   3   8   7    4
+ */
+
 
 //Priority Non-Preemptive
-import java.util.Scanner;
+import java.util.*;
 
-public class PriorityNonPreemptiveEasy {
+public class priority {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter number of processes: ");
         int n = sc.nextInt();
 
+        int[] pid = new int[n];
+        int[] at = new int[n];
         int[] bt = new int[n];
         int[] pr = new int[n];
-        int[] wt = new int[n];
+        int[] ct = new int[n];
         int[] tat = new int[n];
-        int[] pid = new int[n];
+        int[] wt = new int[n];
 
         for (int i = 0; i < n; i++) {
-            System.out.print("Enter burst time for Process " + (i + 1) + ": ");
+            System.out.println("\nEnter details for Process " + (i + 1));
+            System.out.print("Arrival Time: ");
+            at[i] = sc.nextInt();
+            System.out.print("Burst Time: ");
             bt[i] = sc.nextInt();
-            System.out.print("Enter priority for Process " + (i + 1) + ": ");
+            System.out.print("Priority: ");
             pr[i] = sc.nextInt();
             pid[i] = i + 1;
         }
 
-        // Sort by priority
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (pr[i] > pr[j]) {
-                    int temp = pr[i]; pr[i] = pr[j]; pr[j] = temp;
-                    temp = bt[i]; bt[i] = bt[j]; bt[j] = temp;
-                    temp = pid[i]; pid[i] = pid[j]; pid[j] = temp;
+        int completed = 0, time = 0;
+        boolean[] done = new boolean[n];
+
+        while (completed < n) {
+            int idx = -1;
+            int minPr = Integer.MAX_VALUE;
+
+            // Find process with min priority and arrived
+            for (int i = 0; i < n; i++) {
+                if (!done[i] && at[i] <= time && pr[i] < minPr) {
+                    minPr = pr[i];
+                    idx = i;
                 }
             }
+
+            if (idx == -1) {
+                time++;
+                continue;
+            }
+
+            time += bt[idx];
+            ct[idx] = time;
+            tat[idx] = ct[idx] - at[idx];
+            wt[idx] = tat[idx] - bt[idx];
+            done[idx] = true;
+            completed++;
         }
 
-        wt[0] = 0;
-        tat[0] = bt[0];
-        for (int i = 1; i < n; i++) {
-            wt[i] = wt[i - 1] + bt[i - 1];
-            tat[i] = wt[i] + bt[i];
-        }
-
+        // Display
+        System.out.println("\nPID\tAT\tBT\tPR\tCT\tTAT\tWT");
         int totalWT = 0, totalTAT = 0;
-        System.out.println("\nPID\tBT\tPR\tWT\tTAT");
         for (int i = 0; i < n; i++) {
-            System.out.println("P" + pid[i] + "\t" + bt[i] + "\t" + pr[i] + "\t" + wt[i] + "\t" + tat[i]);
+            System.out.println("P" + pid[i] + "\t" + at[i] + "\t" + bt[i] + "\t" + pr[i] +
+                               "\t" + ct[i] + "\t" + tat[i] + "\t" + wt[i]);
             totalWT += wt[i];
             totalTAT += tat[i];
         }
@@ -270,3 +302,11 @@ public class PriorityNonPreemptiveEasy {
         System.out.println("Average Turnaround Time = " + (float) totalTAT / n);
     }
 }
+/*PID	AT	BT	PR	CT	TAT	WT
+P1	0	5	2	5	5	0
+P2	1	3	1	8	7	4
+P3	2	4	3	12	10	6
+
+Average Waiting Time = 3.33
+Average Turnaround Time = 7.33
+ */

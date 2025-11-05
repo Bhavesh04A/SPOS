@@ -92,3 +92,19 @@ public class Bankers {
         new Bankers().isSafe();
     }
 }
+/*Enter number of processes and resources:
+5 3
+Enter Allocation matrix:
+0 1 0
+2 0 0
+3 0 2
+2 1 1
+0 0 2
+Enter Max Need matrix:
+7 5 3
+3 2 2
+9 0 2
+4 2 2
+5 3 3
+Enter Available resources:
+3 3 2*/

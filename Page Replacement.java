@@ -47,6 +47,10 @@ public class FIFO_PageReplacement {
         System.out.println("Total Page Faults = " + pageFaults);
     }
 }
+/*Enter number of frames: 3
+Enter number of pages: 9
+Enter the reference string:
+1 2 3 4 1 2 5 1 2*/
 
 
 //LRU PAGE REPLACEMENT ALGORITHM
@@ -145,6 +149,10 @@ class LRU_PageReplacement {
         algo.lru();
     }
 }
+/*Enter number of frames: 3
+Enter number of pages: 9
+Enter the reference string:
+1 2 3 4 1 2 5 1 2 */
 
 //Optimal Page Replacement Algorithm
 
@@ -217,3 +225,7 @@ public class Optimal_PageReplacement {
         System.out.println("Total Page Faults: " + pageFaults);
     }
 }
+/*Enter number of frames: 3
+Enter number of pages: 9
+Enter the reference string:
+1 2 3 4 1 2 5 1 2 */

@@ -140,10 +140,13 @@ public class SJF_Preemptive {
     }
 }
 /*PID  AT  BT  CT  TAT  WT  RT
-P1   0   8   16  16   8   0
-P2   1   4   5   4    0   0
+P1   0   8   14  14   6   0
+P2   1   4   7   6    2   0
 P3   2   2   4   2    0   0
  */
+// Average TAT: 7.3333335
+// Average WT: 2.6666667
+// Average RT: 0.0
 
 //Round Robbin Preemptive
 import java.util.*;
